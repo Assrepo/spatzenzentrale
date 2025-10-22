@@ -13,10 +13,13 @@
     "database:read"
   ],
   "frontend": {
+    "type": "svelte-component",
+    "entry": "./frontend/dist/plugin-bundle.js",
+    "style": "./frontend/dist/plugin-bundle.css",
     "name": "News Flash",
     "description": "Aktuelle Nachrichten aus Ulm - Live und automatisch aktualisiert",
     "icon": "📰",
-    "route": "/news-flash",
+    "route": "/plugin/news",
     "color": "bg-blue-500 hover:bg-blue-600",
     "category": "content",
     "priority": 10

@@ -13,10 +13,13 @@
     "database:admin"
   ],
   "frontend": {
+    "type": "svelte-component",
+    "entry": "./frontend/dist/plugin-bundle.js",
+    "style": "./frontend/dist/plugin-bundle.css",
     "name": "Database Admin",
     "description": "Datenbank-Verwaltungsinterface zum Anzeigen und Durchsuchen der Tabellen",
     "icon": "🗄️",
-    "route": "/db-admin",
+    "route": "/plugin/database-viewer",
     "color": "bg-green-500 hover:bg-green-600",
     "category": "system",
     "priority": 5

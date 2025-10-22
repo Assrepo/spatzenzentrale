@@ -12,12 +12,16 @@
     "delete": ["admin"]
   },
   "frontend": {
-    "component": "QRProxyDashboard",
-    "route": "/qr-proxy",
-    "title": "QR-Code Proxy",
+    "type": "svelte-component",
+    "entry": "./frontend/dist/plugin-bundle.js",
+    "style": "./frontend/dist/plugin-bundle.css",
+    "name": "QR-Code Proxy",
+    "description": "QR-Code Proxy System für dynamische URL-Verwaltung",
+    "route": "/plugin/qr-proxy",
     "icon": "🌶️",
     "color": "bg-blue-500 hover:bg-blue-600",
-    "category": "content"
+    "category": "content",
+    "priority": 6
   }
 }
 
