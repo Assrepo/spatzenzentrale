@@ -25,6 +25,9 @@
     "method": "GET"
   },
   "frontend": {
+    "type": "svelte-component",
+    "entry": "./frontend/dist/plugin-bundle.js",
+    "style": "./frontend/dist/plugin-bundle.css",
     "name": "Bot Management",
     "description": "Multi-Bot News-Scraping verwalten, Bots testen und konfigurieren",
     "icon": "🤖",

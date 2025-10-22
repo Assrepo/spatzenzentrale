@@ -11,10 +11,13 @@
     "plugins:manage"
   ],
   "frontend": {
+    "type": "svelte-component",
+    "entry": "./frontend/dist/plugin-bundle.js",
+    "style": "./frontend/dist/plugin-bundle.css",
     "name": "Dashboard",
     "description": "Plugin-Verwaltung, Systemstatus und Konfiguration",
     "icon": "📊",
-    "route": "/dashboard",
+    "route": "/plugin/dashboard",
     "color": "bg-green-500 hover:bg-green-600",
     "category": "system",
     "priority": 5

@@ -124,8 +124,13 @@ class PluginLoader {
       path: pluginPath,
       mountPath
     };
-    
+
     this.loadedPlugins.set(pluginName, pluginInfo);
+
+    // Serviere Frontend-Bundle falls vorhanden
+    if (manifest.frontend?.type === 'svelte-component') {
+      this.serveFrontendBundle(app, pluginName, pluginPath);
+    }
 
     // Shutdown-Hook registrieren
     if (typeof pluginModule.onShutdown === 'function') {
@@ -231,6 +236,23 @@ class PluginLoader {
       status: 'loaded',
       env: plugin.manifest.env || {}
     }));
+  }
+
+  /**
+   * Serviert Frontend-Bundle eines Plugins
+   */
+  serveFrontendBundle(app, pluginName, pluginPath) {
+    const express = require('express');
+    const bundlePath = path.join(pluginPath, 'frontend', 'dist');
+
+    if (!fs.existsSync(bundlePath)) {
+      logger.warn(`Plugin ${pluginName}: Frontend-Bundle nicht gefunden in ${bundlePath}`);
+      return;
+    }
+
+    // Serviere statische Files
+    app.use(`/api/plugins/${pluginName}/frontend`, express.static(bundlePath));
+    logger.info(`Plugin ${pluginName}: Frontend-Bundle serviert auf /api/plugins/${pluginName}/frontend`);
   }
 
   /**
