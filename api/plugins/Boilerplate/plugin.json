@@ -1,0 +1,10 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Beispiel-Plugin mit REST-Route und Healthcheck",
+  "route": "/example",
+  "enabled": false,
+  "env": {
+    "EXAMPLE_GREETING": "Hallo von ExamplePlugin"
+  }
+}

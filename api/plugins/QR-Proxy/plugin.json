@@ -1,0 +1,23 @@
+{
+  "name": "QR Code Proxy",
+  "route": "/qr-proxy",
+  "enabled": true,
+  "version": "1.0.0",
+  "type": "core-feature",
+  "description": "QR-Code Proxy System für dynamische URL-Verwaltung",
+
+  "permissions": {
+    "read": ["admin", "user"],
+    "write": ["admin"],
+    "delete": ["admin"]
+  },
+  "frontend": {
+    "component": "QRProxyDashboard",
+    "route": "/qr-proxy",
+    "title": "QR-Code Proxy",
+    "icon": "🌶️",
+    "color": "bg-blue-500 hover:bg-blue-600",
+    "category": "content"
+  }
+}
+

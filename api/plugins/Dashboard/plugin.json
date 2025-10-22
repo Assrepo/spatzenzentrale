@@ -1,0 +1,22 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "type": "core-feature",
+  "description": "System Dashboard für Plugin-Management und Systemübersicht",
+  "route": "/dashboard",
+  "enabled": true,
+  "env": {},
+  "permissions": [
+    "system:admin",
+    "plugins:manage"
+  ],
+  "frontend": {
+    "name": "Dashboard",
+    "description": "Plugin-Verwaltung, Systemstatus und Konfiguration",
+    "icon": "📊",
+    "route": "/dashboard",
+    "color": "bg-green-500 hover:bg-green-600",
+    "category": "system",
+    "priority": 5
+  }
+}

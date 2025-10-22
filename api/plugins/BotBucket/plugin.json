@@ -1,0 +1,44 @@
+{
+  "name": "botbucket",
+  "version": "2.0.0",
+  "type": "plugin",
+  "description": "Modular BotBucket API integration for automated news fetching with multi-bot support",
+  "route": "/botbucket",
+  "enabled": true,
+  "env": {
+    "BOT_URL": "",
+    "BOTBUCKET_HOSTNAME": "chatbots.stadtulm.de",
+    "BOTBUCKET_TIMEOUT": "120000",
+    "BOTBUCKET_AUTO_SAVE": "true"
+  },
+  "permissions": [
+    "database:read",
+    "database:write", 
+    "network:external",
+    "config:read"
+  ],
+  "dependencies": {
+    "node": ">=18.0.0"
+  },
+  "healthcheck": {
+    "path": "/bots",
+    "method": "GET"
+  },
+  "frontend": {
+    "name": "Bot Management",
+    "description": "Multi-Bot News-Scraping verwalten, Bots testen und konfigurieren",
+    "icon": "🤖",
+    "route": "/plugin/botbucket",
+    "color": "bg-blue-500 hover:bg-blue-600",
+    "category": "content",
+    "priority": 8
+  },
+  "features": {
+    "multi_bot_support": true,
+    "configuration_management": true,
+    "hot_reload": true,
+    "bot_validation": true,
+    "scheduling": "planned",
+    "puppeteer_fallback": true
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "title": "Bot Management",
+  "description": "Multi-Bot News-Scraping verwalten, Bots testen und konfigurieren",
+  "icon": "🤖",
+  "layout": "two-column",
+  "sections": [
+    {
+      "id": "bot-selection",
+      "title": "Bot-Auswahl",
+      "icon": "🎯",
+      "column": "left",
+      "components": [
+        {
+          "type": "select",
+          "id": "selectedBot",
+          "label": "Verfügbare ChatBots",
+          "dataSource": {
+            "endpoint": "/botbucket/bots",
+            "valueField": "id",
+            "labelField": "name"
+          },
+          "defaultValue": "a43b3038-423e-47ab-8226-a8714418c88f"
+        },
+        {
+          "type": "button",
+          "label": "Bot-Verbindung testen",
+          "icon": "🧪",
+          "action": {
+            "type": "api",
+            "endpoint": "/botbucket/test",
+            "method": "POST",
+            "params": ["selectedBot"],
+            "successMessage": "Bot-Verbindung erfolgreich!",
+            "errorMessage": "Bot-Test fehlgeschlagen"
+          },
+          "variant": "primary",
+          "fullWidth": true
+        }
+      ]
+    },
+    {
+      "id": "scraping-config",
+      "title": "Scraping-Konfiguration",
+      "icon": "⚙️",
+      "column": "left",
+      "components": [
+        {
+          "type": "textarea",
+          "id": "customQuestion",
+          "label": "Eigene Frage (optional)",
+          "placeholder": "Berichte über die neuesten News...",
+          "rows": 3,
+          "hint": "Leer lassen für Standard-Frage"
+        },
+        {
+          "type": "checkbox",
+          "id": "saveToDatabase",
+          "label": "News automatisch in Datenbank speichern",
+          "defaultValue": true
+        }
+      ]
+    },
+    {
+      "id": "scraping-actions",
+      "title": "Scraping-Aktionen",
+      "icon": "🚀",
+      "column": "left",
+      "components": [
+        {
+          "type": "button",
+          "label": "Scraping via API starten",
+          "icon": "🌐",
+          "action": {
+            "type": "api",
+            "endpoint": "/botbucket/fetch",
+            "method": "POST",
+            "params": ["selectedBot", "customQuestion", "saveToDatabase"],
+            "successMessage": "API-Scraping erfolgreich abgeschlossen",
+            "errorMessage": "API-Scraping fehlgeschlagen",
+            "onSuccess": "refreshHistory"
+          },
+          "variant": "success",
+          "fullWidth": true
+        },
+        {
+          "type": "button",
+          "label": "Scraping via Puppeteer starten",
+          "icon": "🎭",
+          "action": {
+            "type": "api",
+            "endpoint": "/botbucket/scrape",
+            "method": "POST",
+            "params": ["customQuestion", "saveToDatabase"],
+            "successMessage": "Puppeteer-Scraping erfolgreich abgeschlossen",
+            "errorMessage": "Puppeteer-Scraping fehlgeschlagen",
+            "onSuccess": "refreshHistory"
+          },
+          "variant": "secondary",
+          "fullWidth": true
+        },
+        {
+          "type": "info",
+          "items": [
+            "• <strong>API-Scraping:</strong> Schnell, modern, über HTTPS",
+            "• <strong>Puppeteer-Scraping:</strong> Vollständiger Browser, Fallback-Option"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "last-result",
+      "title": "Letztes Scraping-Ergebnis",
+      "icon": "📊",
+      "column": "right",
+      "condition": "lastScrapingResult",
+      "components": [
+        {
+          "type": "keyvalue",
+          "id": "resultSummary",
+          "dataSource": "lastScrapingResult",
+          "fields": [
+            {"key": "method", "label": "Methode"},
+            {"key": "timestamp", "label": "Zeit", "format": "datetime"},
+            {"key": "scraped", "label": "Gefunden", "suffix": " Artikel"},
+            {"key": "saved", "label": "Gespeichert", "suffix": " Artikel"}
+          ]
+        },
+        {
+          "type": "list",
+          "id": "scrapedArticles",
+          "title": "Gefundene Artikel",
+          "dataSource": "lastScrapingResult.data",
+          "itemTemplate": {
+            "title": "{{title}}",
+            "subtitle": "{{date}}"
+          },
+          "maxItems": 5,
+          "maxHeight": "160px"
+        }
+      ]
+    },
+    {
+      "id": "system-status",
+      "title": "System-Status",
+      "icon": "🔍",
+      "column": "right",
+      "components": [
+        {
+          "type": "statuslist",
+          "items": [
+            {"label": "BotBucket API", "status": "online", "icon": "✅"},
+            {"label": "Puppeteer Service", "status": "ready", "icon": "✅"},
+            {"label": "Datenbank", "status": "connected", "icon": "✅"},
+            {"label": "Verfügbare Bots", "dataSource": "availableBots.length"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quick-actions",
+      "title": "Quick Actions",
+      "icon": "⚡",
+      "column": "right",
+      "components": [
+        {
+          "type": "buttongroup",
+          "buttons": [
+            {
+              "label": "📰 News anzeigen",
+              "action": {"type": "navigate", "target": "/news-flash"}
+            },
+            {
+              "label": "🔄 History laden",
+              "action": {"type": "refresh", "target": "scrapingHistory"}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scraping-history",
+      "title": "Scraping History",
+      "icon": "📜",
+      "column": "full",
+      "components": [
+        {
+          "type": "datatable",
+          "id": "historyTable",
+          "dataSource": {
+            "endpoint": "/botbucket/history",
+            "params": {"limit": 20}
+          },
+          "columns": [
+            {"field": "method", "header": "Methode", "width": "100px"},
+            {"field": "status", "header": "Status", "type": "badge"},
+            {"field": "newsCount", "header": "Gefunden", "width": "100px"},
+            {"field": "saved", "header": "Gespeichert", "width": "100px"},
+            {"field": "timestamp", "header": "Zeitpunkt", "type": "datetime"}
+          ],
+          "expandable": {
+            "field": "newsData",
+            "template": "newslist"
+          },
+          "actions": [
+            {
+              "label": "🔄 Aktualisieren",
+              "action": {"type": "refresh"}
+            },
+            {
+              "label": "🧹 History löschen",
+              "action": {
+                "type": "api",
+                "endpoint": "/botbucket/history?confirm=true",
+                "method": "DELETE",
+                "confirm": {
+                  "title": "History löschen",
+                  "message": "Möchtest du wirklich alle Scraping-Einträge löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.",
+                  "confirmText": "Ja, löschen",
+                  "cancelText": "Abbrechen"
+                }
+              },
+              "variant": "danger"
+            }
+          ],
+          "maxHeight": "400px",
+          "emptyState": {
+            "icon": "📭",
+            "title": "Noch keine Scraping-Aktivitäten",
+            "subtitle": "Starte ein Scraping um History zu sehen"
+          }
+        }
+      ]
+    }
+  ]
+}

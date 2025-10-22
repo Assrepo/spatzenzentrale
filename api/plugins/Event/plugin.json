@@ -1,0 +1,14 @@
+{
+  "name": "event",
+  "version": "1.0.0",
+  "description": "Server-Sent Events endpoint for real-time news updates",
+  "route": "/event",
+  "enabled": true,
+  "env": {
+    "EVENT_INTERVAL": "60000",
+    "EVENT_HEARTBEAT": "30000"
+  },
+  "permissions": [
+    "database:read"
+  ]
+}

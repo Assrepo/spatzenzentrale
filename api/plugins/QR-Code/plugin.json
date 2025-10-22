@@ -1,0 +1,6 @@
+{
+  "name": "QR Code Generator",
+  "route": "/qrcode",
+  "enabled": false,
+  "version": "1.0.0"
+}

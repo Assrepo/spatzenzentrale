@@ -1,0 +1,13 @@
+[Unit]
+Description=Spatzenzentrale
+After=network.target
+
+[Service]
+ExecStart=/home/a-robertd/.local/share/fnm/node-versions/v22.14.0/installation/bin/npm run dev:3000
+User=a-robertd
+Group=domain users
+WorkingDirectory=/home/a-robertd/news-flash
+Environment=PATH=/home/a-robertd/.local/share/fnm/node-versions/v22.14.0/installation/bin:/usr/bin:/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target

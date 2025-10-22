@@ -1,0 +1,30 @@
+{
+  "bots": {
+    "ulm-news-primary": {
+      "id": "a43b3038-423e-47ab-8226-a8714418c88f",
+      "name": "Spatzenzentrale Bot",
+      "description": "Hauptbot für News-Abruf aus Ulm",
+      "defaultPrompt": "Berichte ausfuehrlich ueber die neuesten Newsbeitraege seit dem 01.01.2024. Antworte auf deutsch. Format newsFlashTitle=title newsFlashContent=content newsFlashDate=date newsFlashID=InterviewID",
+      "enabled": true,
+      "timeout": 120000,
+      "category": "news",
+      "priority": 1
+    },
+    "ulm-news-backup": {
+      "id": "backup-bot-id-placeholder",
+      "name": "Backup News Bot",
+      "description": "Backup-Bot für News-Abruf bei Ausfall des Hauptbots",
+      "defaultPrompt": "Berichte ausfuehrlich ueber die neuesten Newsbeitraege seit dem 01.01.2024. Antworte auf deutsch. Format newsFlashTitle=title newsFlashContent=content newsFlashDate=date newsFlashID=InterviewID",
+      "enabled": false,
+      "timeout": 90000,
+      "category": "news",
+      "priority": 2
+    }
+  },
+  "defaultSettings": {
+    "hostname": "chatbots.stadtulm.de",
+    "timeout": 120000,
+    "autoSave": true,
+    "maxRetries": 3
+  }
+}

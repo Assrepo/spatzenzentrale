@@ -1,0 +1,24 @@
+{
+  "name": "database-viewer",
+  "version": "1.0.0",
+  "type": "core-feature",
+  "description": "Database administration interface for viewing tables and data",
+  "route": "/api/db-admin",
+  "enabled": true,
+  "env": {
+    "DB_ADMIN_MAX_ROWS": "100"
+  },
+  "permissions": [
+    "database:read",
+    "database:admin"
+  ],
+  "frontend": {
+    "name": "Database Admin",
+    "description": "Datenbank-Verwaltungsinterface zum Anzeigen und Durchsuchen der Tabellen",
+    "icon": "🗄️",
+    "route": "/db-admin",
+    "color": "bg-green-500 hover:bg-green-600",
+    "category": "system",
+    "priority": 5
+  }
+}

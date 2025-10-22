@@ -1,0 +1,24 @@
+{
+  "name": "news",
+  "version": "1.0.0",
+  "type": "core-feature",
+  "description": "News API endpoint that serves news data from database",
+  "route": "/api/news",
+  "enabled": true,
+  "env": {
+    "NEWS_CACHE_DURATION": "300000",
+    "NEWS_MAX_RESULTS": "100"
+  },
+  "permissions": [
+    "database:read"
+  ],
+  "frontend": {
+    "name": "News Flash",
+    "description": "Aktuelle Nachrichten aus Ulm - Live und automatisch aktualisiert",
+    "icon": "📰",
+    "route": "/news-flash",
+    "color": "bg-blue-500 hover:bg-blue-600",
+    "category": "content",
+    "priority": 10
+  }
+}
